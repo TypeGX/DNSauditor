@@ -1,10 +1,14 @@
 import subprocess
+import os
 
 def run_sublist3r(domain, subdomains_output_file):
     print(f"Running Sublist3r on {domain}...")
     result = subprocess.run(['sublist3r', '-d', domain, '-o', subdomains_output_file], capture_output=True, text=True)
     if result.returncode != 0:
         print(f"Sublist3r failed: {result.stderr}")
+        return []
+    if not os.path.exists(subdomains_output_file):
+        print(f"Sublist3r did not create the output file: {subdomains_output_file}")
         return []
     print(f"Sublist3r completed. Results saved to {subdomains_output_file}")
     with open(subdomains_output_file, 'r') as file:
@@ -26,6 +30,7 @@ def run_baddns(subdomains, baddns_output_file):
     print(f"BADDNS results saved to {baddns_output_file}")
 
 def trim_baddns_output(output):
+    # Extract the relevant information using regex or string manipulation
     trimmed_output = ""
     lines = output.splitlines()
     for line in lines:
