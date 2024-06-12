@@ -30,7 +30,6 @@ def run_baddns(subdomains, baddns_output_file):
     print(f"BADDNS results saved to {baddns_output_file}")
 
 def trim_baddns_output(output):
-    # Extract the relevant information using regex or string manipulation
     trimmed_output = ""
     lines = output.splitlines()
     for line in lines:
